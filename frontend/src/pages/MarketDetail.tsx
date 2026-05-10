@@ -1,4 +1,4 @@
-import { FormEvent, useMemo, useState } from 'react';
+import { ChangeEvent, FormEvent, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import api from '../utils/api';
@@ -101,6 +101,22 @@ export default function MarketDetail() {
   const logout = () => {
     clearAuth();
     setSessionUser(null);
+  };
+
+  const handleAmountChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setAmount(Number(event.target.value));
+  };
+
+  const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setAuthForm((current) => ({ ...current, email: event.target.value }));
+  };
+
+  const handleUsernameChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setAuthForm((current) => ({ ...current, username: event.target.value }));
+  };
+
+  const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setAuthForm((current) => ({ ...current, password: event.target.value }));
   };
 
   if (isLoading) {
@@ -223,7 +239,7 @@ export default function MarketDetail() {
                   min={1}
                   step={1}
                   value={amount}
-                  onChange={(event) => setAmount(Number(event.target.value))}
+                  onChange={handleAmountChange}
                   className="w-full rounded-lg border border-zinc-700 bg-black px-4 py-3 text-white outline-none focus:border-emerald-500"
                 />
               </label>
@@ -272,7 +288,7 @@ export default function MarketDetail() {
                   type="email"
                   required
                   value={authForm.email}
-                  onChange={(event) => setAuthForm((current) => ({ ...current, email: event.target.value }))}
+                  onChange={handleEmailChange}
                   className="w-full rounded-lg border border-zinc-700 bg-black px-4 py-3 text-white outline-none focus:border-emerald-500"
                 />
               </label>
@@ -285,7 +301,7 @@ export default function MarketDetail() {
                     required
                     minLength={3}
                     value={authForm.username}
-                    onChange={(event) => setAuthForm((current) => ({ ...current, username: event.target.value }))}
+                    onChange={handleUsernameChange}
                     className="w-full rounded-lg border border-zinc-700 bg-black px-4 py-3 text-white outline-none focus:border-emerald-500"
                   />
                 </label>
@@ -298,7 +314,7 @@ export default function MarketDetail() {
                   required
                   minLength={6}
                   value={authForm.password}
-                  onChange={(event) => setAuthForm((current) => ({ ...current, password: event.target.value }))}
+                  onChange={handlePasswordChange}
                   className="w-full rounded-lg border border-zinc-700 bg-black px-4 py-3 text-white outline-none focus:border-emerald-500"
                 />
               </label>
