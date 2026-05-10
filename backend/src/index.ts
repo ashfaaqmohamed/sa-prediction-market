@@ -4,14 +4,17 @@ import { Server } from 'socket.io';
 import http from 'http';
 import dotenv from 'dotenv';
 import path from 'path';
+import { PrismaClient } from '@prisma/client';
 import authRoutes from './routes/auth';
 import marketRoutes from './routes/markets';
 import communityRoutes from './routes/communities';
+import { seedMarketsIfEmpty } from './seed';
 
 dotenv.config();
 
 const app = express();
 const server = http.createServer(app);
+const prisma = new PrismaClient();
 const allowedOrigins = (process.env.CORS_ORIGIN || '*')
   .split(',')
   .map((origin) => origin.trim())
@@ -43,4 +46,13 @@ io.on('connection', (socket) => {
 });
 
 const PORT = process.env.PORT || 5000;
-server.listen(PORT, () => console.log(`🚀 Backend running on port ${PORT}`));
+
+async function startServer() {
+  await seedMarketsIfEmpty(prisma);
+  server.listen(PORT, () => console.log(`🚀 Backend running on port ${PORT}`));
+}
+
+startServer().catch((error) => {
+  console.error('Failed to start server', error);
+  process.exit(1);
+});
