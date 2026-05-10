@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { marketCategories } from '../constants/categories';
 
 const highlights = [
   {
@@ -37,16 +38,16 @@ export default function Home() {
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
             <Link
-              to="/markets"
+              to="/trending"
               className="rounded-lg bg-emerald-500 px-6 py-3 text-base font-semibold text-black transition hover:bg-emerald-400"
             >
-              Explore markets
+              View trending
             </Link>
             <Link
-              to="/communities"
+              to="/markets"
               className="rounded-lg border border-zinc-700 px-6 py-3 text-base font-semibold text-white transition hover:border-emerald-500 hover:text-emerald-300"
             >
-              View communities
+              Browse categories
             </Link>
           </div>
         </div>
@@ -70,6 +71,25 @@ export default function Home() {
             <p className="mt-3 text-sm leading-7 text-zinc-400">{item.description}</p>
           </div>
         ))}
+      </section>
+
+      <section className="border-t border-zinc-900 py-10">
+        <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-400">Categories</p>
+            <h2 className="mt-2 text-3xl font-semibold text-white">Built around local topic lanes</h2>
+          </div>
+          <Link to="/markets" className="text-sm font-semibold text-emerald-300 hover:text-emerald-200">
+            Browse all markets
+          </Link>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {marketCategories.map((category) => (
+            <span key={category} className="rounded-lg border border-zinc-800 bg-zinc-900 px-4 py-2 text-sm text-zinc-300">
+              {category}
+            </span>
+          ))}
+        </div>
       </section>
 
       <section className="grid gap-8 border-t border-zinc-900 pt-10 lg:grid-cols-[minmax(0,1fr)_minmax(280px,360px)]">

@@ -18,6 +18,18 @@ router.get('/', async (req, res) => {
   res.json(markets);
 });
 
+router.get('/trending', async (req, res) => {
+  const markets = await prisma.market.findMany({
+    include: { community: true },
+  });
+
+  const trending = markets
+    .sort((a, b) => b.yesShares + b.noShares - (a.yesShares + a.noShares))
+    .slice(0, 12);
+
+  res.json(trending);
+});
+
 router.get('/:id', async (req, res) => {
   const market = await prisma.market.findUnique({
     where: { id: req.params.id },
