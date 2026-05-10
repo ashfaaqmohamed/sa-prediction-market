@@ -19,7 +19,7 @@ export default function Markets() {
         <div className="rounded-lg border border-zinc-800 bg-zinc-900/70 p-8 text-zinc-300">
           <p className="text-xl font-semibold text-white">Markets are being prepared.</p>
           <p className="mt-2 text-sm text-zinc-400">
-            Starter markets should appear automatically on a fresh deployment, and new ones can also be added from Bulk Upload.
+            Starter markets should appear automatically on a fresh deployment as soon as the public database is initialized.
           </p>
         </div>
       )}

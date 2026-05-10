@@ -5,7 +5,6 @@ Local Polymarket clone focused on South Africa (play-money only).
 1. Unzip this project
 2. Follow the instructions in each folder's README
 3. Run backend + frontend locally
-4. Upload your `sample-questions.xlsx` via the Bulk Upload page
 
 Enjoy building South Africa's own prediction market! 🚀
 

@@ -1,34 +1,13 @@
 import { Router } from 'express';
 import { PrismaClient } from '@prisma/client';
-import multer from 'multer';
-import xlsx from 'xlsx';
 import { z } from 'zod';
 import { authMiddleware } from '../middleware/auth';
 
 const router = Router();
 const prisma = new PrismaClient();
-const upload = multer({ dest: 'uploads/' });
 const betSchema = z.object({
   outcome: z.enum(['YES', 'NO']),
   amount: z.number().int().positive().max(100000),
-});
-
-router.post('/bulk', upload.single('file'), async (req, res) => {
-  if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
-
-  const workbook = xlsx.readFile(req.file.path);
-  const sheet = workbook.Sheets[workbook.SheetNames[0]];
-  const data = xlsx.utils.sheet_to_json(sheet) as any[];
-
-  const markets = data.map((row: any) => ({
-    title: row.Title,
-    description: row.Description || '',
-    category: row.Category || 'General',
-    endDate: new Date(row.EndDate),
-  }));
-
-  await prisma.market.createMany({ data: markets });
-  res.json({ message: `✅ ${markets.length} markets uploaded successfully!` });
 });
 
 router.get('/', async (req, res) => {
