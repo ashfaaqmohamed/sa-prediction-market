@@ -5,7 +5,7 @@ services:
     plan: free
     region: frankfurt
     rootDir: backend
-    buildCommand: npm install && npm --prefix ../frontend install && npm --prefix ../frontend run build && npm run build && npm run prisma:generate
+    buildCommand: npm install --include=dev && npm --prefix ../frontend install --include=dev && npm --prefix ../frontend run build && npm run build && npm run prisma:generate
     startCommand: sh -c 'npx prisma migrate deploy && npm start'
     envVars:
       - key: NODE_ENV
