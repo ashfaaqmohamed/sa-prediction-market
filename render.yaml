@@ -6,8 +6,7 @@ services:
     region: frankfurt
     rootDir: backend
     buildCommand: npm install && npm --prefix ../frontend install && npm --prefix ../frontend run build && npm run build && npm run prisma:generate
-    preDeployCommand: npx prisma migrate deploy
-    startCommand: npm start
+    startCommand: sh -c 'npx prisma migrate deploy && npm start'
     envVars:
       - key: NODE_ENV
         value: production
