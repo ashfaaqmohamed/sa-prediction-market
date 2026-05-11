@@ -104,7 +104,6 @@ export default function MarketDetail() {
       }
       queryClient.invalidateQueries({ queryKey: ['market', id] });
       queryClient.invalidateQueries({ queryKey: ['markets'] });
-      queryClient.invalidateQueries({ queryKey: ['trending-markets'] });
     },
   });
 
