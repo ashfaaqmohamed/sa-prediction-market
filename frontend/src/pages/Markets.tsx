@@ -1,12 +1,15 @@
 import { useMemo, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { useSearchParams } from 'react-router-dom';
 import api from '../utils/api';
 import MarketCard from '../components/MarketCard';
 import { marketCategories } from '../constants/categories';
 import { Market } from '../types/market';
 
 export default function Markets() {
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initialCategory = searchParams.get('sector') || 'All';
+  const [selectedCategory, setSelectedCategory] = useState(initialCategory);
   const { data: markets } = useQuery<Market[]>({
     queryKey: ['markets'],
     queryFn: () => api.get('/markets').then((res) => res.data),
@@ -24,6 +27,15 @@ export default function Markets() {
     return markets.filter((market) => market.category === selectedCategory);
   }, [markets, selectedCategory]);
 
+  const chooseCategory = (category: string) => {
+    setSelectedCategory(category);
+    if (category === 'All') {
+      setSearchParams({});
+      return;
+    }
+    setSearchParams({ sector: category });
+  };
+
   return (
     <div className="max-w-6xl mx-auto p-8">
       <div className="mb-8 flex flex-col gap-5">
@@ -39,7 +51,7 @@ export default function Markets() {
             <button
               key={category}
               type="button"
-              onClick={() => setSelectedCategory(category)}
+              onClick={() => chooseCategory(category)}
               className={`rounded-lg border px-4 py-2 text-sm font-semibold transition ${
                 selectedCategory === category
                   ? 'border-emerald-500 bg-emerald-500 text-black'

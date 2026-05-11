@@ -14,7 +14,10 @@ function App() {
       <Router>
         <div className="min-h-screen bg-gray-950">
           <nav className="bg-black p-4 flex justify-between items-center">
-            <Link to="/" className="text-3xl font-bold text-emerald-400">ForSA</Link>
+            <Link to="/" className="flex items-center gap-3 text-3xl font-bold text-emerald-400">
+              <span aria-hidden="true" className="text-2xl">🇿🇦</span>
+              <span>ForSA</span>
+            </Link>
             <div className="flex flex-wrap justify-end gap-6 text-lg">
               <Link to="/" className="hover:text-emerald-400">Home</Link>
               <Link to="/trending" className="hover:text-emerald-400">Trending</Link>

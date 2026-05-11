@@ -182,11 +182,11 @@ export default function MarketDetail() {
                 <p className="mt-2 text-sm leading-6 text-zinc-400">{market.resolvesUsing || 'Company announcements and audited public filings.'}</p>
               </div>
               <div className="rounded-lg border border-emerald-900/60 bg-emerald-950/20 p-4">
-                <div className="text-sm font-semibold text-emerald-300">YES if</div>
+                <div className="text-sm font-semibold text-emerald-300">YES</div>
                 <p className="mt-2 text-sm leading-6 text-zinc-300">{market.yesIf || 'Management delivers the stated commitment by the deadline.'}</p>
               </div>
               <div className="rounded-lg border border-rose-900/60 bg-rose-950/20 p-4">
-                <div className="text-sm font-semibold text-rose-300">NO if</div>
+                <div className="text-sm font-semibold text-rose-300">NO</div>
                 <p className="mt-2 text-sm leading-6 text-zinc-300">{market.noIf || 'The commitment is missed, withdrawn, or cannot be verified.'}</p>
               </div>
               {market.resolutionNotes && (
