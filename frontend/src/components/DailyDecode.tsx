@@ -138,12 +138,12 @@ function buildSnapshot(date: Date) {
 function TableBlock({ title, rows }: { title: string; rows: MetricRow[] }) {
   return (
     <div>
-      <h3 className="text-2xl font-bold uppercase tracking-[0.08em] text-[#082454]">{title}</h3>
-      <div className="mt-5 divide-y divide-[#082454] border-y border-[#082454]">
+      <h3 className="text-2xl font-bold uppercase tracking-[0.08em] text-white">{title}</h3>
+      <div className="mt-5 divide-y divide-emerald-950 border-y border-emerald-950">
         {rows.map((row) => (
-          <div key={row.label} className="grid grid-cols-[minmax(0,1fr)_100px] gap-4 py-3 text-xl font-semibold">
+          <div key={row.label} className="grid grid-cols-[minmax(0,1fr)_100px] gap-4 py-3 text-xl font-semibold text-emerald-50">
             <span>{row.label}</span>
-            <span className={`text-right ${row.positive === false ? 'text-[#d64545]' : row.positive ? 'text-[#159a7a]' : ''}`}>
+            <span className={`text-right ${row.positive === false ? 'text-rose-400' : row.positive ? 'text-emerald-400' : 'text-emerald-50'}`}>
               {row.value}
             </span>
           </div>
@@ -158,16 +158,16 @@ function ShareBar({ share, maxValue }: { share: ShareMove; maxValue: number }) {
   const positive = share.value > 0;
 
   return (
-    <div className="rounded-lg border border-[#082454]/10 bg-white/35 p-4">
+    <div className="rounded-lg border border-emerald-900/40 bg-black/25 p-4">
       <div className="flex items-baseline justify-between gap-4">
         <div className="min-w-0">
-          <div className="text-xl font-bold text-[#082454]">{share.label}</div>
-          <div className="mt-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#082454]/55">{share.ticker}</div>
+          <div className="text-xl font-bold text-white">{share.label}</div>
+          <div className="mt-1 text-xs font-semibold uppercase tracking-[0.18em] text-emerald-100/45">{share.ticker}</div>
         </div>
-        <span className={`shrink-0 text-xl font-bold ${positive ? 'text-[#159a7a]' : 'text-[#082454]'}`}>{formatPercent(share.value)}</span>
+        <span className={`shrink-0 text-xl font-bold ${positive ? 'text-emerald-400' : 'text-rose-400'}`}>{formatPercent(share.value)}</span>
       </div>
-      <div className="mt-4 h-7 bg-[#d6ece5]">
-        <div className={`h-full ${positive ? 'bg-[#2cb69e]' : 'bg-[#082454]'}`} style={{ width }} />
+      <div className="mt-4 h-7 rounded-sm bg-emerald-950">
+        <div className={`h-full rounded-sm ${positive ? 'bg-emerald-400' : 'bg-rose-400'}`} style={{ width }} />
       </div>
     </div>
   );
@@ -179,19 +179,19 @@ export default function DailyDecode() {
   const maxMove = Math.max(...snapshot.positives.map((share) => Math.abs(share.value)), ...snapshot.negatives.map((share) => Math.abs(share.value)), 1);
 
   return (
-    <section className="rounded-lg border border-zinc-800 bg-[#f7f2e8] text-[#082454] shadow-[0_24px_80px_rgba(3,12,30,0.18)]">
-      <div className="border-b border-[#082454]/15 px-6 py-6 sm:px-8">
+    <section className="rounded-lg border border-emerald-900/40 bg-[#092016] text-emerald-50 shadow-[0_24px_80px_rgba(0,0,0,0.28)]">
+      <div className="border-b border-emerald-950 px-6 py-6 sm:px-8">
         <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <div className="text-sm font-semibold uppercase tracking-[0.2em] text-[#0f8472]">ForSA daily brief</div>
-            <h3 className="mt-2 text-3xl font-bold uppercase tracking-[0.05em] text-[#082454] sm:text-4xl">South African market pulse</h3>
-            <p className="mt-3 max-w-2xl text-sm leading-6 text-[#082454]/75">
+            <div className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-400">ForSA daily brief</div>
+            <h3 className="mt-2 text-3xl font-bold uppercase tracking-[0.05em] text-white sm:text-4xl">South African market pulse</h3>
+            <p className="mt-3 max-w-2xl text-sm leading-6 text-emerald-100/65">
               A built-in daily snapshot of the JSE and related assets, refreshed from the current date and designed to sit naturally inside the homepage.
             </p>
           </div>
-          <div className="inline-flex w-fit items-center gap-3 rounded-lg border border-[#082454]/15 bg-white/55 px-4 py-3">
-            <div className="text-xs font-semibold uppercase tracking-[0.2em] text-[#082454]/60">Updated</div>
-            <div className="text-lg font-bold text-[#082454]">{formatDate(today)}</div>
+          <div className="inline-flex w-fit items-center gap-3 rounded-lg border border-emerald-900/40 bg-black/25 px-4 py-3">
+            <div className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-100/45">Updated</div>
+            <div className="text-lg font-bold text-white">{formatDate(today)}</div>
           </div>
         </div>
       </div>
@@ -204,7 +204,7 @@ export default function DailyDecode() {
 
         <div className="mt-12 grid gap-10 xl:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
           <div>
-            <h3 className="text-3xl font-bold uppercase tracking-[0.08em] text-[#082454]">Notable shares</h3>
+            <h3 className="text-3xl font-bold uppercase tracking-[0.08em] text-white">Notable shares</h3>
             <div className="mt-8 grid gap-4 lg:grid-cols-2 lg:gap-x-10">
               <div className="space-y-4">
                 {snapshot.positives.map((share) => (
@@ -219,24 +219,24 @@ export default function DailyDecode() {
             </div>
           </div>
 
-          <div className="rounded-lg border border-[#082454]/12 bg-white/45 p-6">
-            <h3 className="text-3xl font-bold uppercase tracking-[0.08em] text-[#082454]">All Share horizons</h3>
-            <div className="mt-8 grid gap-0 border-y border-[#082454] sm:grid-cols-2 xl:grid-cols-1">
+          <div className="rounded-lg border border-emerald-900/40 bg-black/25 p-6">
+            <h3 className="text-3xl font-bold uppercase tracking-[0.08em] text-white">All Share horizons</h3>
+            <div className="mt-8 grid gap-0 border-y border-emerald-950 sm:grid-cols-2 xl:grid-cols-1">
               {snapshot.horizons.map((item) => (
-                <div key={item.label} className="grid grid-cols-[minmax(0,1fr)_120px] items-center gap-4 border-b border-[#082454] px-1 py-4 last:border-b-0">
-                  <div className="text-base font-semibold uppercase tracking-[0.06em]">{item.label}</div>
-                  <div className="text-right text-3xl font-bold">{item.value}</div>
+                <div key={item.label} className="grid grid-cols-[minmax(0,1fr)_120px] items-center gap-4 border-b border-emerald-950 px-1 py-4 last:border-b-0">
+                  <div className="text-base font-semibold uppercase tracking-[0.06em] text-emerald-50">{item.label}</div>
+                  <div className="text-right text-3xl font-bold text-emerald-400">{item.value}</div>
                 </div>
               ))}
             </div>
-            <div className="mt-6 text-sm leading-6 text-[#082454]/70">
+            <div className="mt-6 text-sm leading-6 text-emerald-100/55">
               Demo daily snapshot. Values refresh from the current browser date until a live data feed is wired in.
             </div>
           </div>
         </div>
 
-        <div className="mt-8 flex flex-col gap-4 border-t border-[#082454]/15 pt-5 text-sm text-[#082454]/75 sm:flex-row sm:items-center sm:justify-between">
-          <div className="font-semibold text-[#082454]">
+        <div className="mt-8 flex flex-col gap-4 border-t border-emerald-950 pt-5 text-sm text-emerald-100/55 sm:flex-row sm:items-center sm:justify-between">
+          <div className="font-semibold text-emerald-300">
             Midnight refresh
           </div>
         </div>
