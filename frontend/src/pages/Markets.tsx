@@ -28,10 +28,10 @@ export default function Markets() {
     <div className="max-w-6xl mx-auto p-8">
       <div className="mb-8 flex flex-col gap-5">
         <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-400">Browse</p>
-          <h1 className="mt-2 text-4xl font-bold">Active Markets</h1>
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-400">JSE sectors</p>
+          <h1 className="mt-2 text-4xl font-bold">Management delivery by sector</h1>
           <p className="mt-3 max-w-2xl text-zinc-400">
-            Explore South African prediction markets by topic, inspired by the way major markets group questions into fast-scanning categories.
+            Browse open ForSA questions by JSE sector. Each card tracks a specific management commitment and the public evidence needed to resolve it.
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -55,7 +55,7 @@ export default function Markets() {
       {filteredMarkets.length ? (
         <>
           <div className="mb-4 text-sm text-zinc-500">
-            Showing {filteredMarkets.length} {selectedCategory === 'All' ? 'markets' : selectedCategory.toLowerCase() + ' markets'}
+            Showing {filteredMarkets.length} {selectedCategory === 'All' ? 'questions' : selectedCategory.toLowerCase() + ' questions'}
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredMarkets.map((market) => <MarketCard key={market.id} market={market} />)}
@@ -63,9 +63,9 @@ export default function Markets() {
         </>
       ) : (
         <div className="rounded-lg border border-zinc-800 bg-zinc-900/70 p-8 text-zinc-300">
-          <p className="text-xl font-semibold text-white">No markets in this category yet.</p>
+          <p className="text-xl font-semibold text-white">No open questions in this sector yet.</p>
           <p className="mt-2 text-sm text-zinc-400">
-            Starter markets should appear automatically on a fresh deployment as soon as the public database is initialized.
+            ForSA is starting with a focused coverage set and will add more JSE names over time.
           </p>
         </div>
       )}

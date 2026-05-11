@@ -12,6 +12,7 @@ const betSchema = z.object({
 
 router.get('/', async (req, res) => {
   const markets = await prisma.market.findMany({
+    where: { company: { not: null } },
     include: { community: true },
     orderBy: { createdAt: 'desc' },
   });
@@ -20,6 +21,7 @@ router.get('/', async (req, res) => {
 
 router.get('/trending', async (req, res) => {
   const markets = await prisma.market.findMany({
+    where: { company: { not: null }, resolved: false },
     include: { community: true },
   });
 

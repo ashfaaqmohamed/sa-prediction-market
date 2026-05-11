@@ -24,6 +24,12 @@ model Market {
   title         String
   description   String
   category      String?
+  company       String?
+  ticker        String?
+  resolvesUsing String?
+  yesIf         String?
+  noIf          String?
+  resolutionNotes String?
   endDate       DateTime
   resolved      Boolean    @default(false)
   outcome       String?

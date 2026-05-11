@@ -1,11 +1,10 @@
 export const marketCategories = [
-  'Politics',
-  'Elections',
-  'Economy',
+  'Resources',
+  'Financials',
+  'Industrials',
+  'Consumer Staples',
+  'Consumer Discretionary',
+  'Telecoms & Technology',
+  'Real Estate',
   'Energy',
-  'Infrastructure',
-  'Sports',
-  'Tech & AI',
-  'Culture',
-  'Weather',
 ];

@@ -1,61 +1,62 @@
 import { Link } from 'react-router-dom';
 import { marketCategories } from '../constants/categories';
 
-const highlights = [
+const focusPoints = [
   {
-    title: 'South African focus',
-    description: 'Track questions grounded in local politics, infrastructure, sport, and the economy.',
+    title: 'Commitment-led questions',
+    description: 'Each ForSA market starts with a promise, target, or guidance item from a JSE-listed management team.',
   },
   {
-    title: 'Play-money trading',
-    description: 'Test conviction, build a view, and follow price shifts without risking real capital.',
+    title: 'Resolution before opinion',
+    description: 'Every card states the source, YES condition, and NO condition before the question resolves.',
   },
   {
-    title: 'Community-driven signal',
-    description: 'Each market turns many opinions into a live probability that is easy to scan.',
+    title: 'Receipts over narratives',
+    description: 'The Results Tracker closes the loop by recording whether management actually delivered.',
   },
 ];
 
-const featuredTopics = [
-  'Election outcomes',
-  'Load-shedding milestones',
-  'Rand strength',
-  'Springbok tournament runs',
+const watchedCommitments = [
+  'Margin expansion',
+  'Credit-loss guidance',
+  'Portfolio simplification',
+  'Debt reduction',
+  'Occupancy recovery',
 ];
 
 export default function Home() {
   return (
     <div className="mx-auto max-w-6xl px-6 py-10 sm:px-8">
-      <section className="grid gap-10 border-b border-zinc-900 pb-10 lg:grid-cols-[minmax(0,1.25fr)_320px] lg:items-end">
+      <section className="grid gap-10 border-b border-zinc-900 pb-10 lg:grid-cols-[minmax(0,1.25fr)_340px] lg:items-end">
         <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-400">SA Predict</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-400">ForSA</p>
           <h1 className="mt-4 max-w-4xl text-5xl font-bold leading-tight text-white sm:text-6xl">
-            South Africa&apos;s public pulse, expressed as markets.
+            Is management actually delivering?
           </h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-zinc-300">
-            Follow high-interest questions across politics, infrastructure, sport, and the economy. Browse live odds,
-            open a market, and see where conviction is building.
+            ForSA tracks JSE-listed management teams against the commitments investors care about: guidance,
+            margins, capital allocation, debt targets, and operational milestones.
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
             <Link
-              to="/trending"
+              to="/sectors"
               className="rounded-lg bg-emerald-500 px-6 py-3 text-base font-semibold text-black transition hover:bg-emerald-400"
             >
-              View trending
+              Browse sectors
             </Link>
             <Link
-              to="/markets"
+              to="/results"
               className="rounded-lg border border-zinc-700 px-6 py-3 text-base font-semibold text-white transition hover:border-emerald-500 hover:text-emerald-300"
             >
-              Browse categories
+              View results
             </Link>
           </div>
         </div>
 
         <div className="rounded-lg border border-zinc-800 bg-zinc-900/70 p-6">
-          <div className="text-sm font-medium uppercase tracking-[0.18em] text-zinc-400">What people are watching</div>
+          <div className="text-sm font-medium uppercase tracking-[0.18em] text-zinc-400">Tracked commitments</div>
           <div className="mt-5 space-y-4">
-            {featuredTopics.map((topic) => (
+            {watchedCommitments.map((topic) => (
               <div key={topic} className="rounded-lg border border-zinc-800 bg-black/30 px-4 py-3 text-sm text-zinc-200">
                 {topic}
               </div>
@@ -65,7 +66,7 @@ export default function Home() {
       </section>
 
       <section className="grid gap-6 py-10 md:grid-cols-3">
-        {highlights.map((item) => (
+        {focusPoints.map((item) => (
           <div key={item.title} className="rounded-lg border border-zinc-800 bg-zinc-900/50 p-6">
             <h2 className="text-xl font-semibold text-white">{item.title}</h2>
             <p className="mt-3 text-sm leading-7 text-zinc-400">{item.description}</p>
@@ -76,11 +77,11 @@ export default function Home() {
       <section className="border-t border-zinc-900 py-10">
         <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-400">Categories</p>
-            <h2 className="mt-2 text-3xl font-semibold text-white">Built around local topic lanes</h2>
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-400">JSE sectors</p>
+            <h2 className="mt-2 text-3xl font-semibold text-white">Start narrow, build credibility</h2>
           </div>
-          <Link to="/markets" className="text-sm font-semibold text-emerald-300 hover:text-emerald-200">
-            Browse all markets
+          <Link to="/sectors" className="text-sm font-semibold text-emerald-300 hover:text-emerald-200">
+            Browse all sectors
           </Link>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -94,17 +95,17 @@ export default function Home() {
 
       <section className="grid gap-8 border-t border-zinc-900 pt-10 lg:grid-cols-[minmax(0,1fr)_minmax(280px,360px)]">
         <div>
-          <h2 className="text-3xl font-semibold text-white">How the platform feels in practice</h2>
+          <h2 className="text-3xl font-semibold text-white">How a ForSA question resolves</h2>
           <p className="mt-4 max-w-3xl text-base leading-8 text-zinc-300">
-            Open a market, check the current YES and NO probabilities, and see recent trading activity. As more users
-            take positions, the price becomes a lightweight signal of collective expectation.
+            A question is framed around a management commitment. The card shows the public source, the YES condition,
+            and the NO condition. When results or SENS announcements arrive, the outcome moves into the Results Tracker.
           </p>
         </div>
         <div className="rounded-lg border border-emerald-900/60 bg-emerald-950/20 p-6">
-          <div className="text-sm font-medium uppercase tracking-[0.18em] text-emerald-300">Current focus</div>
-          <p className="mt-3 text-2xl font-semibold text-white">Public-interest forecasting for South Africa</p>
+          <div className="text-sm font-medium uppercase tracking-[0.18em] text-emerald-300">Positioning</div>
+          <p className="mt-3 text-2xl font-semibold text-white">Investment accountability for South Africa</p>
           <p className="mt-3 text-sm leading-7 text-zinc-300">
-            Built for local questions that deserve a sharper, more transparent read than hot takes alone can offer.
+            Focused first on JSE-listed companies, with expansion only after the resolution record is useful and trusted.
           </p>
         </div>
       </section>

@@ -9,8 +9,15 @@ type Market = {
   title: string;
   description: string;
   category?: string;
+  company?: string;
+  ticker?: string;
+  resolvesUsing?: string;
+  yesIf?: string;
+  noIf?: string;
+  resolutionNotes?: string;
   endDate: string;
   resolved: boolean;
+  outcome?: string;
   yesShares: number;
   noShares: number;
   predictions: Array<{ id: string; outcome: 'YES' | 'NO'; amount: number; shares: number }>;
@@ -85,6 +92,7 @@ export default function MarketDetail() {
       }
       queryClient.invalidateQueries({ queryKey: ['market', id] });
       queryClient.invalidateQueries({ queryKey: ['markets'] });
+      queryClient.invalidateQueries({ queryKey: ['trending-markets'] });
     },
   });
 
@@ -127,8 +135,8 @@ export default function MarketDetail() {
     return (
       <div className="max-w-6xl mx-auto p-8">
         <p className="text-red-400 text-lg">Could not load this market.</p>
-        <Link to="/markets" className="inline-block mt-4 text-emerald-400 hover:text-emerald-300">
-          Back to markets
+        <Link to="/sectors" className="inline-block mt-4 text-emerald-400 hover:text-emerald-300">
+          Back to sectors
         </Link>
       </div>
     );
@@ -136,8 +144,8 @@ export default function MarketDetail() {
 
   return (
     <div className="max-w-6xl mx-auto p-8 space-y-8">
-      <Link to="/markets" className="inline-block text-sm text-zinc-400 hover:text-emerald-400">
-        Back to markets
+      <Link to="/sectors" className="inline-block text-sm text-zinc-400 hover:text-emerald-400">
+        Back to sectors
       </Link>
 
       <div className="grid gap-8 lg:grid-cols-[minmax(0,1.5fr)_minmax(320px,1fr)]">
@@ -146,8 +154,10 @@ export default function MarketDetail() {
             <div className="flex flex-wrap items-center gap-3 text-sm">
               <span className="rounded-md bg-emerald-950 px-3 py-1 text-emerald-300">{market.category || 'General'}</span>
               <span className="text-zinc-400">Closes {new Date(market.endDate).toLocaleDateString('en-ZA')}</span>
+              {market.ticker && <span className="text-zinc-500">{market.ticker}</span>}
             </div>
             <h1 className="mt-4 text-4xl font-bold leading-tight">{market.title}</h1>
+            {market.company && <p className="mt-3 text-sm font-semibold uppercase tracking-[0.16em] text-zinc-500">{market.company}</p>}
             <p className="mt-4 max-w-3xl text-lg text-zinc-300">{market.description}</p>
 
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
@@ -165,13 +175,37 @@ export default function MarketDetail() {
           </div>
 
           <div className="rounded-lg border border-zinc-800 bg-zinc-950 p-6">
+            <h2 className="text-2xl font-semibold">Resolution criteria</h2>
+            <div className="mt-5 grid gap-4">
+              <div className="rounded-lg border border-zinc-800 bg-black/30 p-4">
+                <div className="text-sm font-semibold text-zinc-300">Resolves using</div>
+                <p className="mt-2 text-sm leading-6 text-zinc-400">{market.resolvesUsing || 'Company announcements and audited public filings.'}</p>
+              </div>
+              <div className="rounded-lg border border-emerald-900/60 bg-emerald-950/20 p-4">
+                <div className="text-sm font-semibold text-emerald-300">YES if</div>
+                <p className="mt-2 text-sm leading-6 text-zinc-300">{market.yesIf || 'Management delivers the stated commitment by the deadline.'}</p>
+              </div>
+              <div className="rounded-lg border border-rose-900/60 bg-rose-950/20 p-4">
+                <div className="text-sm font-semibold text-rose-300">NO if</div>
+                <p className="mt-2 text-sm leading-6 text-zinc-300">{market.noIf || 'The commitment is missed, withdrawn, or cannot be verified.'}</p>
+              </div>
+              {market.resolutionNotes && (
+                <div className="rounded-lg border border-zinc-800 bg-black/30 p-4">
+                  <div className="text-sm font-semibold text-zinc-300">Result note</div>
+                  <p className="mt-2 text-sm leading-6 text-zinc-400">{market.resolutionNotes}</p>
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div className="rounded-lg border border-zinc-800 bg-zinc-950 p-6">
             <div className="flex items-center justify-between">
-              <h2 className="text-2xl font-semibold">Market activity</h2>
-              <span className="text-sm text-zinc-400">{market.predictions.length} trades</span>
+              <h2 className="text-2xl font-semibold">Activity</h2>
+              <span className="text-sm text-zinc-400">{market.predictions.length} assessments</span>
             </div>
             <div className="mt-5 space-y-3">
               {market.predictions.length === 0 ? (
-                <p className="text-zinc-400">No trades yet. Be the first to take a position.</p>
+                <p className="text-zinc-400">No assessments yet. Be the first to take a view.</p>
               ) : (
                 market.predictions.slice().reverse().map((prediction) => (
                   <div
@@ -180,7 +214,7 @@ export default function MarketDetail() {
                   >
                     <div>
                       <div className="font-medium">{prediction.outcome}</div>
-                      <div className="text-sm text-zinc-400">{prediction.shares} shares bought</div>
+                      <div className="text-sm text-zinc-400">{prediction.shares} conviction shares</div>
                     </div>
                     <div className="text-sm text-zinc-300">{prediction.amount} SA credits</div>
                   </div>
@@ -192,7 +226,7 @@ export default function MarketDetail() {
 
         <aside className="space-y-6">
           <div className="rounded-lg border border-zinc-800 bg-zinc-950 p-6">
-            <h2 className="text-2xl font-semibold">Trade this market</h2>
+            <h2 className="text-2xl font-semibold">Assess this commitment</h2>
             {sessionUser ? (
               <div className="mt-4 rounded-lg border border-zinc-800 bg-black/40 p-4">
                 <div className="text-sm text-zinc-400">Signed in as</div>
@@ -206,7 +240,7 @@ export default function MarketDetail() {
               </div>
             ) : (
               <div className="mt-4 rounded-lg border border-amber-900 bg-amber-950/30 p-4 text-sm text-amber-200">
-                Log in or create an account to place a trade.
+                Log in or create an account to record an assessment.
               </div>
             )}
 
@@ -219,7 +253,7 @@ export default function MarketDetail() {
                     selectedOutcome === 'YES' ? 'bg-emerald-500 text-black' : 'bg-zinc-900 text-zinc-200'
                   }`}
                 >
-                  Buy YES
+                  YES: delivers
                 </button>
                 <button
                   type="button"
@@ -228,7 +262,7 @@ export default function MarketDetail() {
                     selectedOutcome === 'NO' ? 'bg-rose-500 text-black' : 'bg-zinc-900 text-zinc-200'
                   }`}
                 >
-                  Buy NO
+                  NO: misses
                 </button>
               </div>
 
@@ -246,10 +280,14 @@ export default function MarketDetail() {
 
               <button
                 type="submit"
-                disabled={!sessionUser || tradeMutation.isPending}
+                disabled={!sessionUser || market.resolved || tradeMutation.isPending}
                 className="w-full rounded-lg bg-white px-4 py-3 text-lg font-semibold text-black disabled:cursor-not-allowed disabled:bg-zinc-700 disabled:text-zinc-400"
               >
-                {tradeMutation.isPending ? 'Placing trade...' : `Place ${selectedOutcome} trade`}
+                {market.resolved
+                  ? `Resolved ${market.outcome || ''}`
+                  : tradeMutation.isPending
+                    ? 'Recording assessment...'
+                    : `Record ${selectedOutcome} assessment`}
               </button>
             </form>
 
@@ -258,7 +296,7 @@ export default function MarketDetail() {
             )}
             {tradeMutation.isError && (
               <p className="mt-4 text-sm text-red-400">
-                {(tradeMutation.error as any)?.response?.data?.error || 'Trade failed'}
+                {(tradeMutation.error as any)?.response?.data?.error || 'Assessment failed'}
               </p>
             )}
           </div>
@@ -329,7 +367,7 @@ export default function MarketDetail() {
             </form>
 
             {authMutation.isSuccess && (
-              <p className="mt-4 text-sm text-emerald-300">You are ready to trade.</p>
+              <p className="mt-4 text-sm text-emerald-300">You are ready to assess.</p>
             )}
             {authMutation.isError && (
               <p className="mt-4 text-sm text-red-400">

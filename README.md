@@ -1,12 +1,12 @@
-# 🇿🇦 SA Predict – South Africa Prediction Market
-Local Polymarket clone focused on South Africa (play-money only).
+# ForSA – JSE Management Delivery Tracker
+ForSA tracks whether JSE-listed management teams deliver on stated commitments, guidance, targets, and capital allocation promises.
 
 ## Quick Start
 1. Unzip this project
 2. Follow the instructions in each folder's README
 3. Run backend + frontend locally
 
-Enjoy building South Africa's own prediction market! 🚀
+Enjoy building a focused investment accountability platform for South Africa.
 
 ## Share It Publicly
 

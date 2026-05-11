@@ -15,9 +15,9 @@ export default function Trending() {
     <div className="mx-auto max-w-6xl p-8">
       <section className="mb-8 border-b border-zinc-900 pb-8">
         <p className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-400">Trending</p>
-        <h1 className="mt-2 text-4xl font-bold text-white">Markets with the most activity</h1>
+        <h1 className="mt-2 text-4xl font-bold text-white">Management commitments with the most activity</h1>
         <p className="mt-3 max-w-2xl text-zinc-400">
-          A quick read on where attention is clustering, ranked by total YES and NO shares.
+          A quick read on where investor attention is clustering, ranked by total YES and NO shares.
         </p>
       </section>
 
@@ -45,8 +45,8 @@ export default function Trending() {
         </div>
       ) : (
         <div className="rounded-lg border border-zinc-800 bg-zinc-900/70 p-8 text-zinc-300">
-          <p className="text-xl font-semibold text-white">Trending markets are warming up.</p>
-          <p className="mt-2 text-sm text-zinc-400">Once seeded markets are available, the most active questions will appear here.</p>
+          <p className="text-xl font-semibold text-white">Trending commitments are warming up.</p>
+          <p className="mt-2 text-sm text-zinc-400">Once ForSA questions are available, the most active commitments will appear here.</p>
         </div>
       )}
     </div>
