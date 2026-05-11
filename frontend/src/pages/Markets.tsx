@@ -4,6 +4,7 @@ import { useSearchParams } from 'react-router-dom';
 import api from '../utils/api';
 import MarketCard from '../components/MarketCard';
 import { marketCategories } from '../constants/categories';
+import { withDemoMarkets } from '../data/demoMarkets';
 import { Market } from '../types/market';
 
 export default function Markets() {
@@ -16,15 +17,13 @@ export default function Markets() {
   });
 
   const filteredMarkets = useMemo(() => {
-    if (!markets) {
-      return [];
-    }
+    const displayMarkets = withDemoMarkets(markets);
 
     if (selectedCategory === 'All') {
-      return markets;
+      return displayMarkets;
     }
 
-    return markets.filter((market) => market.category === selectedCategory);
+    return displayMarkets.filter((market) => market.category === selectedCategory);
   }, [markets, selectedCategory]);
 
   const chooseCategory = (category: string) => {

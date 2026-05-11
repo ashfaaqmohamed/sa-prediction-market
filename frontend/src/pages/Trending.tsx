@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import MarketCard from '../components/MarketCard';
+import { withDemoMarkets } from '../data/demoMarkets';
 import api from '../utils/api';
 import { Market } from '../types/market';
 
@@ -9,7 +10,10 @@ export default function Trending() {
     queryFn: () => api.get('/markets/trending').then((res) => res.data),
   });
 
-  const leader = markets?.[0];
+  const displayMarkets = withDemoMarkets(markets)
+    .filter((market) => !market.resolved)
+    .sort((left, right) => right.yesShares + right.noShares - (left.yesShares + left.noShares));
+  const leader = displayMarkets[0];
 
   return (
     <div className="mx-auto max-w-6xl p-8">
@@ -39,9 +43,9 @@ export default function Trending() {
 
       {isLoading ? (
         <div className="rounded-lg border border-zinc-800 bg-zinc-900/70 p-8 text-zinc-300">Loading trending markets...</div>
-      ) : markets?.length ? (
+      ) : displayMarkets.length ? (
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {markets.map((market) => <MarketCard key={market.id} market={market} />)}
+          {displayMarkets.map((market) => <MarketCard key={market.id} market={market} />)}
         </div>
       ) : (
         <div className="rounded-lg border border-zinc-800 bg-zinc-900/70 p-8 text-zinc-300">

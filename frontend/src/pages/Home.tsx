@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import DailyDecode from '../components/DailyDecode';
 import MarketCard from '../components/MarketCard';
 import { marketCategories } from '../constants/categories';
+import { withDemoMarkets } from '../data/demoMarkets';
 import { Market } from '../types/market';
 import api from '../utils/api';
 
@@ -28,7 +29,8 @@ export default function Home() {
     queryFn: () => api.get('/markets').then((res) => res.data),
   });
 
-  const openMarkets = useMemo(() => (markets || []).filter((market) => !market.resolved), [markets]);
+  const displayMarkets = useMemo(() => withDemoMarkets(markets), [markets]);
+  const openMarkets = useMemo(() => displayMarkets.filter((market) => !market.resolved), [displayMarkets]);
   const featuredMarkets = openMarkets.slice(0, 4);
   const liveMarkets = openMarkets.slice(0, 4);
 

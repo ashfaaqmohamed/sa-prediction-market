@@ -2,6 +2,7 @@ import { ChangeEvent, FormEvent, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import api from '../utils/api';
+import { getDemoMarketById } from '../data/demoMarkets';
 import { clearAuth, getStoredUser, getToken, saveAuth, StoredUser } from '../utils/auth';
 
 type Market = {
@@ -41,7 +42,18 @@ export default function MarketDetail() {
 
   const { data: market, isLoading, error } = useQuery<Market>({
     queryKey: ['market', id],
-    queryFn: () => api.get(`/markets/${id}`).then((res) => res.data),
+    queryFn: async () => {
+      try {
+        const response = await api.get(`/markets/${id}`);
+        return response.data;
+      } catch (requestError) {
+        const demoMarket = getDemoMarketById(id);
+        if (demoMarket) {
+          return { ...demoMarket, predictions: [], comments: [] };
+        }
+        throw requestError;
+      }
+    },
     enabled: Boolean(id),
   });
 

@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import api from '../utils/api';
+import { withDemoMarkets } from '../data/demoMarkets';
 import { Market } from '../types/market';
 
 export default function ResultsTracker() {
@@ -9,7 +10,7 @@ export default function ResultsTracker() {
     queryFn: () => api.get('/markets').then((res) => res.data),
   });
 
-  const resolvedMarkets = (markets || []).filter((market) => market.resolved);
+  const resolvedMarkets = withDemoMarkets(markets).filter((market) => market.resolved);
 
   return (
     <div className="mx-auto max-w-6xl p-8">
